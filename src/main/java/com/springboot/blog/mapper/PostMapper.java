@@ -18,6 +18,5 @@ public interface PostMapper {
 
     List<PostDto> postToPostDtoList(List<Post> posts);
 
-    List<Post> postDtoToPostList(List<PostDto> postDtos);
 
 }
