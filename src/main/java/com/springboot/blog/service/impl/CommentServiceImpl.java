@@ -10,6 +10,9 @@ import com.springboot.blog.repository.PostRepository;
 import com.springboot.blog.service.CommentService;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.List;
+
 @Service
 public class CommentServiceImpl implements CommentService {
 
@@ -30,5 +33,17 @@ public class CommentServiceImpl implements CommentService {
         comment.setPost(post);
         Comment newComment = commentRepository.save(comment);
         return commentMapper.toCommentDto(newComment);
+    }
+
+    @Override
+    public List<CommentDto> getAllCommentsByPostId(long postId) {
+        List<Comment> comments = commentRepository.findByPostId(postId);
+        return commentMapper.toCommentDtoList(comments);
+    }
+
+    @Override
+    public CommentDto getCommentById(long id) {
+        Comment comment = commentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Comment", "id", id));
+        return commentMapper.toCommentDto(comment);
     }
 }
