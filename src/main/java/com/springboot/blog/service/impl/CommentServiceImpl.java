@@ -10,14 +10,12 @@ import com.springboot.blog.repository.PostRepository;
 import com.springboot.blog.service.CommentService;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class CommentServiceImpl implements CommentService {
 
-    private CommentRepository commentRepository;
-    private CommentMapper commentMapper;
-    private PostRepository postRepository;
+    private final CommentRepository commentRepository;
+    private final CommentMapper commentMapper;
+    private final PostRepository postRepository;
 
     public CommentServiceImpl(CommentRepository commentRepository, CommentMapper commentMapper, PostRepository postRepository) {
         this.commentRepository = commentRepository;

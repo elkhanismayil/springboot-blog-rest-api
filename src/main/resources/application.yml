@@ -1,16 +1,15 @@
 spring:
   datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/myblog?ssl=false
-    username: postgres
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/myblog?useSSL=false&allowPublicKeyRetrieval=True&createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: root
     password: 12345
 
   jpa:
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-        jdbc:
-          time_zone: UTC
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
 
     hibernate:
       ddl-auto: update
@@ -19,7 +18,7 @@ logging:
   level:
     org:
       hibernate:
-        SQL: debug
+        SQL: error
         type:
           descriptor:
             sql:
