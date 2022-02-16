@@ -25,15 +25,24 @@ public class CommentController {
         return new ResponseEntity<>(message, HttpStatus.CREATED);
     }
 
-    @GetMapping("/{postId}")
+    @GetMapping("/posts/{postId}/comments")
     public ResponseEntity<Object> getAllCommentByPostId(@PathVariable(value = "postId") long postId) {
         SuccessStatusMessage<List<CommentDto>> message = new SuccessStatusMessage<>("Success", commentService.getAllCommentsByPostId(postId), true);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    @GetMapping("/comment/{id}")
-    public ResponseEntity<Object> getByCommentId(@PathVariable(value = "id") long id) {
-        SuccessStatusMessage<CommentDto> message = new SuccessStatusMessage<>("Success", commentService.getCommentById(id), true);
+    @GetMapping("/post/{postId}/comment/{commentId}")
+    public ResponseEntity<Object> getByCommentId(@PathVariable(value = "postId") long postId, @PathVariable(value = "commentId") long commentId) {
+        SuccessStatusMessage<CommentDto> message = new SuccessStatusMessage<>("Success", commentService.getCommentById(postId, commentId), true);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
+
+    @PutMapping("/update/post/{postId}/comment/{commentId}")
+    public ResponseEntity<Object> updateComment(@PathVariable(value = "postId") long postId,
+                                                @PathVariable(value = "commentId") long commentId,
+                                                @RequestBody CommentDto commentDto) {
+        SuccessStatusMessage<CommentDto> message = new SuccessStatusMessage<>("Success", commentService.updateComment(postId, commentId, commentDto), true);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
 }
