@@ -19,7 +19,7 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-    @PostMapping("/post/{postId}/comment")
+    @PostMapping("/create/post/{postId}/comment")
     public ResponseEntity<Object> createComment(@PathVariable(value = "postId") long postId, @RequestBody CommentDto commentDto) {
         SuccessStatusMessage<CommentDto> message = new SuccessStatusMessage<>("Success", commentService.createComment(postId, commentDto), true);
         return new ResponseEntity<>(message, HttpStatus.CREATED);
