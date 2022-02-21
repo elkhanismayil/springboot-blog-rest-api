@@ -3,6 +3,7 @@ package com.springboot.blog.controller;
 import com.springboot.blog.payload.PostDto;
 import com.springboot.blog.payload.PostResponse;
 import com.springboot.blog.service.PostService;
+import com.springboot.blog.utils.SuccessStatusMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,26 +21,30 @@ public class PostController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<PostDto> createPost(@RequestBody PostDto postDto) {
-        PostDto post = postService.createPost(postDto);
-        return new ResponseEntity<>(post, HttpStatus.CREATED);
+    public ResponseEntity<Object> createPost(@RequestBody PostDto postDto) {
+        SuccessStatusMessage<PostDto> message = new SuccessStatusMessage<>("Successfully created!", postService.createPost(postDto), true);
+        return new ResponseEntity<>(message, HttpStatus.CREATED);
     }
 
     @GetMapping("/all")
-    public ResponseEntity<PostResponse> getAll(
+    public ResponseEntity<Object> getAll(
             @RequestParam(value = "pageNo", defaultValue = DEFAULT_PAGE_NUMBER, required = false) int pageNo,
             @RequestParam(value = "pageSize", defaultValue = DEFAULT_PAGE_SIZE, required = false) int pageSize,
             @RequestParam(value = "sortBy", defaultValue = DEFAULT_SORT_BY, required = false) String sortBy,
             @RequestParam(value = "sortDir", defaultValue = DEFAULT_SORT_DIRECTION, required = false) String sortDir
     ) {
-        PostResponse postDtoList = postService.getAllPost(pageNo, pageSize, sortBy, sortDir);
-        return new ResponseEntity<>(postDtoList, HttpStatus.OK);
+        SuccessStatusMessage<PostResponse> message = new SuccessStatusMessage<>("Success!",
+                postService.getAllPost(pageNo, pageSize, sortBy, sortDir), true);
+
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PostDto> getPostById(@PathVariable("id") Long id) {
-        PostDto postById = postService.getPostById(id);
-        return new ResponseEntity<>(postById, HttpStatus.OK);
+    public ResponseEntity<Object> getPostById(@PathVariable("id") Long id) {
+        SuccessStatusMessage<PostDto> message = new SuccessStatusMessage<>("Success!",
+                postService.getPostById(id), true);
+
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")
