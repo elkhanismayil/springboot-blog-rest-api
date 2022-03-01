@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class BlogAPIException extends RuntimeException{
+public class BlogAPIException extends RuntimeException {
     private HttpStatus status;
     private String message;
 }
